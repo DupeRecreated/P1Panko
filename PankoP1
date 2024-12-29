@@ -1,3 +1,20 @@
+
+local GameWave = game.Players.LocalPlayer.PlayerGui:WaitForChild("ReactGameTopGameDisplay"):WaitForChild("Frame"):WaitForChild("wave"):WaitForChild("container"):WaitForChild("value") -- // Current wave you are on
+
+task.spawn(function()
+    local hasSkipped = false
+    while tonumber(GameWave.Text) < 26 do
+        if game:GetService("Players").LocalPlayer.PlayerGui.ReactOverridesVote.Frame.votes.vote.Position ~= UDim2.new(2, 30, 0.5, 0) then
+            if not hasSkipped then
+                game:GetService("ReplicatedStorage"):WaitForChild("RemoteFunction"):InvokeServer("Voting", "Skip")
+                hasSkipped = true
+            end
+        else
+            hasSkipped = false
+        end
+        task.wait(0.1)
+    end
+end)
 getgenv().playerNames = {"DONOTEDITTHIS1","DONOTEDITTHIS2"} --HERE it is used to only specify player count, DO NOT EDIT!
 getgenv().StratCreditsAuthor = "Optional"
 local TDS = loadstring(game:HttpGet("https://raw.githubusercontent.com/Sigmanic/Strategies-X/refs/heads/main/TDS/MainSource.lua", true))()
